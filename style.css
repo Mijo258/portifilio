@@ -7,6 +7,7 @@
     --bg-color: #0a0a0a;
     --main-color: #00ff41; /* Matrix Green */
     --text-color: #e0e0e0;
+    --font-mono: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
     --card-bg: rgba(15, 15, 15, 0.85);
     --highlight-color: #ffffff;
 }
@@ -15,7 +16,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-mono);
 }
 
 body {
@@ -23,6 +24,22 @@ body {
     color: var(--text-color);
     overflow-x: hidden;
     line-height: 1.5;
+}
+
+/* --- SCANLINE EFFECT --- */
+body::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 9999;
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    opacity: 0.1;
 }
 
 /* --- BACKGROUND LAYER (Neural Network Canvas) --- */
@@ -60,8 +77,9 @@ header {
     white-space: nowrap; 
     font-weight: 800;
     margin-bottom: 0.2rem;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
     text-transform: uppercase;
+    font-family: var(--font-mono);
 }
 
 .highlight {
@@ -83,6 +101,59 @@ header {
     margin: 0 auto 1.5rem auto;
     opacity: 0.8;
     line-height: 1.4;
+}
+
+/* --- TERMINAL COMPONENT --- */
+.terminal-container {
+    background: #000;
+    border: 1px solid var(--main-color);
+    border-radius: 4px;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: left;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+}
+
+.terminal-header {
+    background: #1a1a1a;
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    color: var(--main-color);
+    border-bottom: 1px solid var(--main-color);
+}
+
+.terminal-output {
+    padding: 10px;
+    height: 150px;
+    overflow-y: auto;
+    font-size: 0.8rem;
+    color: var(--main-color);
+}
+
+.terminal-input-line {
+    padding: 0 10px 10px 10px;
+    display: flex;
+    gap: 8px;
+    font-size: 0.8rem;
+}
+
+.prompt {
+    color: var(--main-color);
+}
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    outline: none;
+    flex: 1;
+    font-family: var(--font-mono);
+}
+
+.terminal-line.response {
+    color: #fff;
+    font-style: italic;
+    margin-bottom: 8px;
 }
 
 /* --- INTERACTIVE BUTTONS --- */
@@ -109,6 +180,19 @@ header {
     color: #000;
     box-shadow: 0 0 20px var(--main-color);
     transform: translateY(-3px);
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    border-color: #444;
+    color: #444;
+}
+
+.btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+    background: transparent;
 }
 
 /* --- MENU TOGGLE (High-Intensity Highlight) --- */

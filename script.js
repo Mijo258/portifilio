@@ -108,7 +108,69 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 3. UI CONTROLS ---
+    // --- 3. TERMINAL COMPONENT ---
+    const terminalOutput = document.getElementById('terminal-output');
+    const terminalInput = document.getElementById('terminal-input');
+    
+    const logs = [
+        "[INFO] Initializing Alexandria_Logic_Bridge...",
+        "[OK] P2P Transaction Validation: 200 OK",
+        "[DEBUG] Django Signal: Post-save intercept triggered",
+        "[INFO] Diagnostic Protocol: Wait-and-Request ACTIVE",
+        "[SUCCESS] System Ready."
+    ];
+
+    let logIndex = 0;
+    function typeLog() {
+        if (logIndex < logs.length) {
+            const line = document.createElement('div');
+            line.className = 'terminal-line';
+            line.textContent = logs[logIndex];
+            terminalOutput.appendChild(line);
+            logIndex++;
+            setTimeout(typeLog, 600);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+    }
+    typeLog();
+
+    if (terminalInput) {
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = terminalInput.value.toLowerCase().trim();
+                const response = document.createElement('div');
+                response.className = 'terminal-line response';
+                
+                if (cmd === 'help') {
+                    response.textContent = "Available commands: help, whoami, clear";
+                } else if (cmd === 'whoami') {
+                    response.textContent = "AI Logic Architect utilizing 'Wait-and-Request' to enforce deterministic outputs.";
+                } else if (cmd === 'clear') {
+                    terminalOutput.innerHTML = '';
+                } else {
+                    response.textContent = `Command not found: ${cmd}`;
+                }
+                
+                terminalOutput.appendChild(response);
+                terminalInput.value = '';
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+        });
+    }
+
+    // --- 4. EASTER EGG ---
+    let eggBuffer = "";
+    document.addEventListener('keydown', (e) => {
+        eggBuffer += e.key.toLowerCase();
+        if (eggBuffer.includes("middleout")) {
+            console.log("%c Compression Algorithm Optimized. Efficiency: 100%. ", "background: #00ff41; color: #000; font-weight: bold;");
+            alert("Compression Algorithm Optimized. Efficiency: 100%.");
+            eggBuffer = "";
+        }
+        if (eggBuffer.length > 20) eggBuffer = eggBuffer.substring(1);
+    });
+
+    // --- 5. UI CONTROLS ---
     const menuToggle = document.getElementById('menu-toggle');
     const menuPanel = document.getElementById('menu-panel');
     if (menuToggle) {
