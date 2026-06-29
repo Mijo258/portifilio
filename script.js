@@ -142,7 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 response.className = 'terminal-line response';
                 
                 if (cmd === 'help') {
-                    response.textContent = "Available commands: help, whoami, clear";
+                    response.textContent = "Available commands: help, whoami, clear, projects, contact";
+                } else if (cmd === 'projects') {
+                    response.textContent = "View documentation pending projects in the 'Experience' section.";
+                } else if (cmd === 'contact') {
+                    response.textContent = "Email: mijogiddo@gmail.com | LinkedIn: mohamedalmajzoub-osman-56b057284";
                 } else if (cmd === 'whoami') {
                     response.textContent = "AI Logic Architect utilizing 'Wait-and-Request' to enforce deterministic outputs.";
                 } else if (cmd === 'clear') {
