@@ -112,27 +112,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const terminalOutput = document.getElementById('terminal-output');
     const terminalInput = document.getElementById('terminal-input');
     
-    const logs = [
-        "[INFO] Initializing Alexandria_Logic_Bridge...",
-        "[OK] P2P Transaction Validation: 200 OK",
-        "[DEBUG] Django Signal: Post-save intercept triggered",
-        "[INFO] Diagnostic Protocol: Wait-and-Request ACTIVE",
-        "[SUCCESS] System Ready."
-    ];
+    if (terminalOutput) {
+        const logs = [
+            "[INFO] Initializing Alexandria_Logic_Bridge...",
+            "[OK] P2P Transaction Validation: 200 OK",
+            "[DEBUG] Django Signal: Post-save intercept triggered",
+            "[INFO] Diagnostic Protocol: Wait-and-Request ACTIVE",
+            "[SUCCESS] System Ready."
+        ];
 
-    let logIndex = 0;
-    function typeLog() {
-        if (logIndex < logs.length) {
-            const line = document.createElement('div');
-            line.className = 'terminal-line';
-            line.textContent = logs[logIndex];
-            terminalOutput.appendChild(line);
-            logIndex++;
-            setTimeout(typeLog, 600);
-            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        let logIndex = 0;
+        function typeLog() {
+            if (logIndex < logs.length) {
+                const line = document.createElement('div');
+                line.className = 'terminal-line';
+                line.textContent = logs[logIndex];
+                terminalOutput.appendChild(line);
+                logIndex++;
+                setTimeout(typeLog, 600);
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
         }
+        typeLog();
     }
-    typeLog();
 
     if (terminalInput) {
         terminalInput.addEventListener('keydown', (e) => {

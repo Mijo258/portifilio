@@ -200,7 +200,7 @@ header {
     position: fixed;
     left: 25px;
     top: 25px;
-    z-index: 1000;
+    z-index: 10000; /* Higher than scanline layer to ensure clicks register */
 }
 
 .menu-toggle {
